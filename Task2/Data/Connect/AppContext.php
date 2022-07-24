@@ -10,7 +10,7 @@ class AppContext{
             die("Ошибка: " . $this->appConnect->connect_error);
         }
         echo "<br>";
-        echo "Подключение успешно установлено";
+        echo "Подключение к БД успешно установлено";
         echo "<br>";
     }
 }

@@ -11,90 +11,117 @@
 use Shuchkin\SimpleXLSX;
 
     require_once 'Data/Connect/AppContext.php';
-    require_once 'Data/Repositories/MySqlDBRepository.php';
-    // require_once 'vendors/SimpleXLSX.php';
+    require_once 'Data/Repositories/ListOfLessonRepository.php';
+    require_once 'Data/Repositories/DeadlinesRepository.php'; 
+    require_once 'Data/Repositories/WeeklyScheduleRepository.php'; 
+    require_once 'Data/Repositories/SemesterCalendarRepository.php';
     require_once 'ParseExcel.php';
 
     const fileExcel = 'Book.xlsx';
     const fileExcelTest = 'test2.xlsx';
 
-    // $excel1 = new SimpleXLSX();
-    // $xls1 = $excel1::parseFile(fileExcel);
-    // $list1 = $xls1->rows(0);
-
-    // echo $list1[2];
     echo "<br>";
     echo "Test";
     echo "<br>";
 
     $connectDb = new AppContext();
-    $DbRepository = new MySqlDBRepository($connectDb->appConnect);
-    $DbRepository->CreateNewTable();
     $objExcelParse = new ParseExcel();
-    $test = $objExcelParse->ParseOneList();
 
-    for($i = 0; $i < count($test); $i++){
-        $DbRepository->AddValues($test[$i]);
-
-        // foreach($test[$i] as $item){
-        //     echo $item;
-        //     echo "<br>";
-        //     echo "-----";
-        //     echo "<br>";
-        // }
-    }
-   
-
-
-
-    // $excel = new SimpleXLSX();
-
-    // if ( $xls = $excel::parseFile(fileExcel) ) {
-        
-    //     $list = $xls->rows(0);
-
-    //     $startRow = 2;
-
-    //     for($startRow; $startRow < count($xls->rows(0)); $startRow++ ){
-    //         $startColumn = 1;
-    //         $addCollectionDb = [];
-
-    //         for($startColumn; $startColumn < count($list[1])-1; $startColumn++){
-
-    //         if($startColumn == 7 || $startColumn == 8 || $startColumn == 9){
-    //             $newData = date("H:i:s", strtotime($list[$startRow][$startColumn]));
-    //             $list[$startRow][$startColumn] =  $newData;
-    //         }   
-    //             $addCollectionDb[] = $list[$startRow][$startColumn];
-    //             echo $list[$startRow][$startColumn];
-    //             echo " - ";
-
-    //         }
-    //         echo "<br/>";
-    //         echo var_dump($addCollectionDb);
-    //         echo "<br/>";
-    // }
-    // } else {
-    //     echo $excel::parseError();
-    // }
-
-
-    // $connectDb = new AppContext();
-    // $DbRepository = new  MySqlDBRepository($connectDb->appConnect);
+    // $DbRepository = new ListOfLessonRepository($connectDb->appConnect);
+    // $resCreate = $DbRepository->CreateNewTable();
+    // if($resCreate)
+    // {
+    //     $ListofLessonParseArray = $objExcelParse->ParseOneList();
     
-    // $resCreateTable = $DbRepository->CreateNewTable();
-    // if($resCreateTable){
-    //     echo "Create Table!";
+    //     for($i = 0; $i < count($ListofLessonParseArray); $i++)
+    //     {
+    //         $DbRepository->AddValues($i, $ListofLessonParseArray[$i]);
+    //     }
     // }
-    // else{
-    //     echo "Sorry Create Table is False";
+    // else
+    // {   
+    //     echo "<br>";
+    //     echo "Создать ListOfLesson таблицу не удалось.";
+    // }
+    
+    // *********
+
+    // $DbRepository = new DeadlinesRepository($connectDb->appConnect);
+    // $resCreate = $DbRepository->CreateNewTable();
+
+    // if($resCreate)
+    // {
+    //     $DeadlinesParseArray = $objExcelParse->ParseTwoList();
+    
+    //     for($i = 0; $i < count($DeadlinesParseArray); $i++)
+    //     {
+    //         $DbRepository->AddValues($i, $DeadlinesParseArray[$i]);
+    //     }
+    // }
+    // else
+    // {   
+    //     echo "<br>";
+    //     echo "Создать Deadlines таблицу не удалось.";
+    // }
+
+    // *********
+
+    // $DbRepository = new WeeklyScheduleRepository($connectDb->appConnect);
+    // $resCreate = $DbRepository->CreateNewTable();
+
+    // if($resCreate)
+    // {
+    //     $WeeklyScheduleParseArray = $objExcelParse->ParseThirdList();
+    
+    //     for($i = 0; $i < count($WeeklyScheduleParseArray); $i++)
+    //     {   
+    //        $DbRepository->AddValues($i, $WeeklyScheduleParseArray[$i]);
+    //     }
+
+    // }
+    // else
+    // {   
+    //     echo "<br>";
+    //     echo "Создать WeeklySchedule таблицу не удалось.";
+    // }
+
+
+    // *********
+    $DbRepository = new SemesterCalendarRepository($connectDb->appConnect);
+    // $resCreate = $DbRepository->CreateNewTable();
+    $SemesterCalendarParseArray = $objExcelParse->ParseFourList();
+    echo var_dump($SemesterCalendarParseArray);
+
+    // if($resCreate)
+    // {
+    //     $SemesterCalendarParseArray = $objExcelParse->ParseThirdList();
+    
+    //     for($i = 0; $i < count($SemesterCalendarParseArray); $i++)
+    //     {   
+            
+    //        $DbRepository->AddValues($i, $SemesterCalendarParseArray[$i]);
+    //     }
+    // }
+    // else
+    // {   
+    //     echo "<br>";
+    //     echo "Создать WeeklySchedule таблицу не удалось.";
+    // }
+
+
+   
+    //
+    // $sssss = $DbRepository->SelectItem();
+    // foreach($sssss as $row){
+    //      echo var_dump($row);
+    //     // $userid = $row["id"];
+    //     // $username = $row["name"];
+    //     // $userage = $row["age"];
     // }
 
     echo "<br>";
     echo "Footer";
     echo "<br>";
-
- 
 ?>
 
 </body>
